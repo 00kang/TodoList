@@ -1,5 +1,10 @@
 import { BASE_URL } from "@/lib/constants";
-import { getTodoResponse, postTodoRequest, postTodoResponse } from "@/lib/type";
+import {
+  getTodoResponse,
+  patchTodoRequest,
+  postTodoRequest,
+  postTodoResponse,
+} from "@/lib/type";
 
 // 항목 등록 (POST)
 export const postTodo = async (
@@ -28,5 +33,21 @@ export const getTodos = async (
   );
 
   if (!res.ok) throw new Error("Failed to fetch todos");
+  return res.json();
+};
+
+// 항목 수정 (PATCH)
+export const patchTodo = async (
+  tenantId: string,
+  itemId: string,
+  payload: patchTodoRequest,
+) => {
+  const res = await fetch(`${BASE_URL}/${tenantId}/items/${itemId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) throw new Error("Failed to update todos");
   return res.json();
 };

@@ -4,9 +4,13 @@ import EmptyState from "@/components/EmptyState";
 import ShadowButton from "@/components/ShadowButton";
 import TodoInput from "@/components/TodoInput";
 import TodoItem from "@/components/TodoItem";
-import { getTodos, postTodo } from "@/lib/api";
+import { getTodos, patchTodo, postTodo } from "@/lib/api";
 import { TENANT_ID } from "@/lib/constants";
-import { getTodoResponse, postTodoResponse } from "@/lib/type";
+import {
+  getTodoResponse,
+  patchTodoRequest,
+  postTodoResponse,
+} from "@/lib/type";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -58,19 +62,33 @@ export default function HomePage() {
     }
   };
 
-  const toggleTodoState = (id: number) => {
-    setTodos((prev) => {
-      const updatedTodos = prev.map((todo) => {
-        if (todo.id === id) {
-          const nextState: "Default" | "Active" =
-            todo.state === "Default" ? "Active" : "Default";
-          return { ...todo, state: nextState };
-        }
-        return todo;
-      });
+  const toggleTodoState = async (id: number) => {
+    const target = todos.find((todo) => todo.id === id);
+    if (!target) return;
 
-      return updatedTodos;
-    });
+    const updated: patchTodoRequest = {
+      name: target.text,
+      memo: "",
+      imageUrl: "",
+      isCompleted: target.state === "Default",
+    };
+
+    try {
+      await patchTodo(TENANT_ID, String(id), updated);
+
+      setTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id
+            ? {
+                ...todo,
+                state: todo.state === "Default" ? "Active" : "Default",
+              }
+            : todo,
+        ),
+      );
+    } catch (e) {
+      console.error("할 일 상태 변경 실패", e);
+    }
   };
 
   const todoList = todos.filter((todo) => todo.state === "Default");

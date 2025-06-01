@@ -19,3 +19,21 @@ export interface getTodoResponse {
   name: string;
   isCompleted: boolean;
 }
+
+// PATCH /{tenantId}/items/{itemId} 요청 바디 타입
+export interface patchTodoRequest {
+  name: string;
+  memo: string;
+  imageUrl: string;
+  isCompleted: boolean;
+}
+
+// PATCH /{tenantId}/items/{itemId} 응답 타입
+export interface patchTodoResponse {
+  id: number;
+  tenantId: string;
+  name: string;
+  memo: string;
+  imageUrl: string;
+  isCompleted: boolean;
+}
