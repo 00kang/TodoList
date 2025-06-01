@@ -4,6 +4,9 @@ import EmptyState from "@/components/EmptyState";
 import ShadowButton from "@/components/ShadowButton";
 import TodoInput from "@/components/TodoInput";
 import TodoItem from "@/components/TodoItem";
+import { postTodo } from "@/lib/api";
+import { TENANT_ID } from "@/lib/constants";
+import { postTodoResponse } from "@/lib/type";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -17,18 +20,22 @@ export default function HomePage() {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const handleAddTodo = () => {
+  const handleAddTodo = async () => {
     const trimmed = inputValue.trim();
     if (trimmed === "") return;
 
-    const newTodo: Todo = {
-      id: Date.now(),
-      text: trimmed,
-      state: "Default",
-    };
-
-    setTodos((prev) => [...prev, newTodo]);
-    setInputValue("");
+    try {
+      const newItem: postTodoResponse = await postTodo(TENANT_ID, trimmed);
+      const newTodo: Todo = {
+        id: newItem.id,
+        text: newItem.name,
+        state: "Default",
+      };
+      setTodos((prev) => [...prev, newTodo]);
+      setInputValue("");
+    } catch (e) {
+      console.error("할 일 추가 실패", e);
+    }
   };
 
   const toggleTodoState = (id: number) => {
