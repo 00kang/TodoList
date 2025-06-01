@@ -43,7 +43,9 @@ export default function HomePage() {
     if (trimmed === "") return;
 
     try {
-      const newItem: postTodoResponse = await postTodo(TENANT_ID, trimmed);
+      const newItem: postTodoResponse = await postTodo(TENANT_ID, {
+        name: trimmed,
+      });
       const newTodo: Todo = {
         id: newItem.id,
         text: newItem.name,

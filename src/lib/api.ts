@@ -1,15 +1,15 @@
 import { BASE_URL } from "@/lib/constants";
-import { getTodoResponse, postTodoResponse } from "@/lib/type";
+import { getTodoResponse, postTodoRequest, postTodoResponse } from "@/lib/type";
 
 // 항목 등록 (POST)
 export const postTodo = async (
   tenantId: string,
-  name: string,
+  data: postTodoRequest,
 ): Promise<postTodoResponse> => {
   const res = await fetch(`${BASE_URL}/${tenantId}/items`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name }),
+    body: JSON.stringify(data),
   });
 
   if (!res.ok) throw new Error("Failed to create todo");

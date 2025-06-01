@@ -1,3 +1,8 @@
+// POST /{tenantId}/items API 요청 바디 타입
+export interface postTodoRequest {
+  name: string;
+}
+
 // POST /{tenantId}/items API 응답 타입
 export interface postTodoResponse {
   id: 0;
