@@ -7,3 +7,10 @@ export interface postTodoResponse {
   imageUrl: "string" | null;
   isCompleted: false;
 }
+
+// GET /{tenantId}/items API 응답 타입
+export interface getTodoResponse {
+  id: number;
+  name: string;
+  isCompleted: boolean;
+}

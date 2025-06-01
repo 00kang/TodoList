@@ -4,11 +4,11 @@ import EmptyState from "@/components/EmptyState";
 import ShadowButton from "@/components/ShadowButton";
 import TodoInput from "@/components/TodoInput";
 import TodoItem from "@/components/TodoItem";
-import { postTodo } from "@/lib/api";
+import { getTodos, postTodo } from "@/lib/api";
 import { TENANT_ID } from "@/lib/constants";
-import { postTodoResponse } from "@/lib/type";
+import { getTodoResponse, postTodoResponse } from "@/lib/type";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Todo {
   id: number;
@@ -19,6 +19,24 @@ interface Todo {
 export default function HomePage() {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const items = await getTodos(TENANT_ID);
+        const todosFromServer: Todo[] = items.map((item: getTodoResponse) => ({
+          id: item.id,
+          text: item.name,
+          state: item.isCompleted ? "Active" : "Default",
+        }));
+        setTodos(todosFromServer);
+      } catch (e) {
+        console.error("할 일 목록 불러오기 실패", e);
+      }
+    };
+
+    fetchTodos();
+  }, []);
 
   const handleAddTodo = async () => {
     const trimmed = inputValue.trim();

@@ -1,5 +1,5 @@
 import { BASE_URL } from "@/lib/constants";
-import { postTodoResponse } from "@/lib/type";
+import { getTodoResponse, postTodoResponse } from "@/lib/type";
 
 // 항목 등록 (POST)
 export const postTodo = async (
@@ -14,5 +14,19 @@ export const postTodo = async (
 
   if (!res.ok) throw new Error("Failed to create todo");
 
+  return res.json();
+};
+
+// 항목 목록 조회 (GET)
+export const getTodos = async (
+  tenantId: string,
+  page: number = 1,
+  pageSize: number = 10,
+): Promise<getTodoResponse[]> => {
+  const res = await fetch(
+    `${BASE_URL}/${tenantId}/items?page=${page}&pageSize=${pageSize}`,
+  );
+
+  if (!res.ok) throw new Error("Failed to fetch todos");
   return res.json();
 };
