@@ -1,33 +1,31 @@
 "use client";
 
-import FlatButton from "@/components/FlatButton";
 import ShadowButton from "@/components/ShadowButton";
 import TodoHeader from "@/components/TodoHeader";
-import { patchTodo } from "@/lib/api";
+import TodoImageUploader from "@/components/TodoImageUploader";
+import { patchTodo, postImage } from "@/lib/api";
 import { TENANT_ID } from "@/lib/constants";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-interface ItemDetailPageProps {
-  params: { itemId: string };
-  searchParams: { text?: string; state?: string };
-}
-
-export default function ItemDetailPage({
-  params,
-  searchParams,
-}: ItemDetailPageProps) {
+export default function ItemDetailPage() {
   const router = useRouter();
-  const { itemId } = params;
+  const params = useParams();
+  const searchParams = useSearchParams();
 
-  const initialText = searchParams.text ?? "제목 없음";
-  const initialState = searchParams.state === "Active" ? "Active" : "Default";
+  const itemId = params?.itemId as string;
 
-  const [text, setText] = useState(initialText);
-  const [todoState, setTodoState] = useState<"Default" | "Active">(
-    initialState,
-  );
+  const [text, setText] = useState("제목 없음");
+  const [todoState, setTodoState] = useState<"Default" | "Active">("Default");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    const searchText = searchParams.get("text") ?? "제목 없음";
+    const state = searchParams.get("state") === "Active" ? "Active" : "Default";
+
+    setText(searchText);
+    setTodoState(state);
+  }, [searchParams]);
 
   const toggleState = () => {
     setTodoState((prev) => (prev === "Default" ? "Active" : "Default"));
@@ -35,10 +33,16 @@ export default function ItemDetailPage({
 
   const handleEdit = async () => {
     try {
+      let imageUrl = "";
+      if (imageFile) {
+        const res = await postImage(TENANT_ID, imageFile);
+        imageUrl = res.url;
+      }
+
       await patchTodo(TENANT_ID, itemId, {
         name: text,
         isCompleted: todoState === "Active",
-        imageUrl: "",
+        imageUrl,
         memo: "",
       });
       router.push("/");
@@ -60,17 +64,7 @@ export default function ItemDetailPage({
       {/* 이미지 업로드 & 메모 박스 */}
       <div className="flex gap-6">
         {/* 이미지 업로더 */}
-        <div className="relative flex h-[311px] w-[384px] items-center justify-center rounded-3xl border-2 border-dashed border-slate-300 bg-slate-50">
-          <Image
-            src="/images/illustrations/img.svg"
-            alt="image placeholder"
-            width={64}
-            height={64}
-          />
-          <div className="absolute bottom-4 right-4">
-            <FlatButton type="Plus" />
-          </div>
-        </div>
+        <TodoImageUploader onChange={setImageFile} />
 
         {/* 메모 박스 */}
         <div className="relative flex h-[311px] w-[588px] flex-col items-center rounded-3xl bg-[url('/images/illustrations/memo.svg')] bg-cover bg-no-repeat px-6 py-6">

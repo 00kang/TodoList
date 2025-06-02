@@ -20,7 +20,7 @@ export interface getTodoResponse {
   isCompleted: boolean;
 }
 
-// PATCH /{tenantId}/items/{itemId} 요청 바디 타입
+// PATCH /{tenantId}/items/{itemId} API 요청 바디 타입
 export interface patchTodoRequest {
   name: string;
   memo: string;
@@ -28,7 +28,7 @@ export interface patchTodoRequest {
   isCompleted: boolean;
 }
 
-// PATCH /{tenantId}/items/{itemId} 응답 타입
+// PATCH /{tenantId}/items/{itemId} API 응답 타입
 export interface patchTodoResponse {
   id: number;
   tenantId: string;
@@ -36,4 +36,9 @@ export interface patchTodoResponse {
   memo: string;
   imageUrl: string;
   isCompleted: boolean;
+}
+
+// POST /{tenantId}/images/upload API 응답 타입
+export interface postImageResponse {
+  url: string;
 }

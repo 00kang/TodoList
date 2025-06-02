@@ -2,6 +2,8 @@ import { BASE_URL } from "@/lib/constants";
 import {
   getTodoResponse,
   patchTodoRequest,
+  patchTodoResponse,
+  postImageResponse,
   postTodoRequest,
   postTodoResponse,
 } from "@/lib/type";
@@ -18,7 +20,6 @@ export const postTodo = async (
   });
 
   if (!res.ok) throw new Error("Failed to create todo");
-
   return res.json();
 };
 
@@ -41,7 +42,7 @@ export const patchTodo = async (
   tenantId: string,
   itemId: string,
   payload: patchTodoRequest,
-) => {
+): Promise<patchTodoResponse> => {
   const res = await fetch(`${BASE_URL}/${tenantId}/items/${itemId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -49,5 +50,22 @@ export const patchTodo = async (
   });
 
   if (!res.ok) throw new Error("Failed to update todos");
+  return res.json();
+};
+
+// 이미지 업로드 (POST)
+export const postImage = async (
+  tenantId: string,
+  file: File,
+): Promise<postImageResponse> => {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  const res = await fetch(`${BASE_URL}/${tenantId}/images/upload`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!res.ok) throw new Error("Failed to upload image");
   return res.json();
 };
