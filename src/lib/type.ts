@@ -48,6 +48,11 @@ export interface patchTodoResponse {
   isCompleted: boolean;
 }
 
+// DELETE /{tenantId}/items/{itemId} API 응답 타입
+export interface deleteTodoItemResponse {
+  message: string;
+}
+
 // POST /{tenantId}/images/upload API 응답 타입
 export interface postImageResponse {
   url: string;

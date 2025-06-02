@@ -4,7 +4,7 @@ import ShadowButton from "@/components/ShadowButton";
 import TodoHeader from "@/components/TodoHeader";
 import TodoImageUploader from "@/components/TodoImageUploader";
 import TodoMemoEditor from "@/components/TodoMemoEditor";
-import { getTodoItem, patchTodo, postImage } from "@/lib/api";
+import { deleteTodoItem, getTodoItem, patchTodo, postImage } from "@/lib/api";
 import { TENANT_ID } from "@/lib/constants";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -62,6 +62,15 @@ export default function ItemDetailPage() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await deleteTodoItem(TENANT_ID, itemId);
+      router.push("/"); // 목록 페이지로 이동
+    } catch (err) {
+      console.error("Failed to delete todo:", err);
+    }
+  };
+
   return (
     <div className="w-full space-y-6 py-6">
       {/* 할 일 제목 영역 */}
@@ -86,7 +95,12 @@ export default function ItemDetailPage() {
           state="Default"
           onClick={handleEdit}
         />
-        <ShadowButton type="Delete" size="Large" state="Default" />
+        <ShadowButton
+          type="Delete"
+          size="Large"
+          state="Default"
+          onClick={handleDelete}
+        />
       </div>
     </div>
   );

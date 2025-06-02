@@ -1,5 +1,6 @@
 import { BASE_URL } from "@/lib/constants";
 import {
+  deleteTodoItemResponse,
   getTodoItemResponse,
   getTodoResponse,
   patchTodoRequest,
@@ -62,6 +63,19 @@ export const patchTodo = async (
   });
 
   if (!res.ok) throw new Error("Failed to update todos");
+  return res.json();
+};
+
+// 항목 삭제 (DELETE)
+export const deleteTodoItem = async (
+  tenantId: string,
+  itemId: string,
+): Promise<deleteTodoItemResponse> => {
+  const res = await fetch(`${BASE_URL}/${tenantId}/items/${itemId}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) throw new Error("Failed to delete todo item");
   return res.json();
 };
 
