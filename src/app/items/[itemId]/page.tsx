@@ -3,7 +3,10 @@
 import FlatButton from "@/components/FlatButton";
 import ShadowButton from "@/components/ShadowButton";
 import TodoHeader from "@/components/TodoHeader";
+import { patchTodo } from "@/lib/api";
+import { TENANT_ID } from "@/lib/constants";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface ItemDetailPageProps {
@@ -15,12 +18,13 @@ export default function ItemDetailPage({
   params,
   searchParams,
 }: ItemDetailPageProps) {
+  const router = useRouter();
   const { itemId } = params;
-  console.log(itemId);
 
-  const text = searchParams.text ?? "제목 없음";
+  const initialText = searchParams.text ?? "제목 없음";
   const initialState = searchParams.state === "Active" ? "Active" : "Default";
 
+  const [text, setText] = useState(initialText);
   const [todoState, setTodoState] = useState<"Default" | "Active">(
     initialState,
   );
@@ -29,9 +33,29 @@ export default function ItemDetailPage({
     setTodoState((prev) => (prev === "Default" ? "Active" : "Default"));
   };
 
+  const handleEdit = async () => {
+    try {
+      await patchTodo(TENANT_ID, itemId, {
+        name: text,
+        isCompleted: todoState === "Active",
+        imageUrl: "",
+        memo: "",
+      });
+      router.push("/");
+    } catch (err) {
+      console.error("Failed to update todo:", err);
+    }
+  };
+
   return (
     <div className="w-full space-y-6 py-6">
-      <TodoHeader text={text} state={todoState} onToggle={toggleState} />
+      {/* 할 일 제목 영역 */}
+      <TodoHeader
+        text={text}
+        state={todoState}
+        onToggle={toggleState}
+        onTextChange={setText}
+      />
 
       {/* 이미지 업로드 & 메모 박스 */}
       <div className="flex gap-6">
@@ -61,7 +85,12 @@ export default function ItemDetailPage({
 
       {/* 버튼 영역 */}
       <div className="flex justify-end gap-4">
-        <ShadowButton type="Edit" size="Large" state="Default" />
+        <ShadowButton
+          type="Edit"
+          size="Large"
+          state="Default"
+          onClick={handleEdit}
+        />
         <ShadowButton type="Delete" size="Large" state="Default" />
       </div>
     </div>
