@@ -10,6 +10,7 @@ interface ShadowButtonProps {
   size: ButtonSize;
   state: ButtonState;
   onClick?: () => void;
+  className?: string;
 }
 
 export default function ShadowButton({
@@ -17,6 +18,7 @@ export default function ShadowButton({
   size,
   state,
   onClick,
+  className,
 }: ShadowButtonProps) {
   // 아이콘 경로 및 텍스트 설정
   const ICONS: Record<ButtonType, string> = {
@@ -59,7 +61,7 @@ export default function ShadowButton({
   return (
     <button
       onClick={onClick}
-      className="relative inline-block"
+      className={`relative inline-block ${className}`}
       style={{ cursor: "pointer" }}
     >
       {/* 그림자 레이어 */}

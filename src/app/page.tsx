@@ -120,17 +120,30 @@ export default function HomePage() {
             onEnter={handleAddTodo}
           />
         </div>
-        <ShadowButton
-          type="Add"
-          size="Large"
-          state="Default"
-          onClick={handleAddTodo}
-        />
+        <>
+          {/* 모바일 전용 버튼 */}
+          <ShadowButton
+            type="Add"
+            size="Small"
+            state={todos.length === 0 ? "Active" : "Default"}
+            onClick={handleAddTodo}
+            className="block md:hidden"
+          />
+          {/* 태블릿/데스크탑 전용 이미지 */}
+          <ShadowButton
+            type="Add"
+            size="Large"
+            state={todos.length === 0 ? "Active" : "Default"}
+            onClick={handleAddTodo}
+            className="hidden md:block"
+          />
+        </>
       </div>
 
       {/* 리스트 영역 */}
-      <div className="grid grid-cols-2 gap-6">
-        <div className="gap-4">
+      <div className="flex flex-col gap-12 lg:flex-row lg:gap-6">
+        {/* TODO 리스트 */}
+        <div className="flex-1 gap-4">
           <Image
             src="/images/illustrations/todo.svg"
             alt="todo"
@@ -149,16 +162,29 @@ export default function HomePage() {
                 />
               ))
             ) : (
-              <EmptyState
-                imgSrc="/images/illustrations/todo-empty-large.svg"
-                alt="empty todo"
-                message={`할 일이 없어요.\nTODO를 새롭게 추가해주세요!`}
-                size={240}
-              />
+              <>
+                {/* 모바일 전용 이미지 */}
+                <EmptyState
+                  imgSrc="/images/illustrations/todo-empty-small.svg"
+                  alt="empty todo"
+                  message={`할 일이 없어요.\nTODO를 새롭게 추가해주세요!`}
+                  size={120}
+                  className="block md:hidden"
+                />
+                {/* 태블릿/데스크탑 전용 이미지 */}
+                <EmptyState
+                  imgSrc="/images/illustrations/todo-empty-large.svg"
+                  alt="empty todo"
+                  message={`할 일이 없어요.\nTODO를 새롭게 추가해주세요!`}
+                  size={240}
+                  className="hidden md:block"
+                />
+              </>
             )}
           </div>
         </div>
-        <div className="gap-4">
+        {/* DONE 리스트 */}
+        <div className="flex-1 gap-4">
           <Image
             src="/images/illustrations/done.svg"
             alt="done"
@@ -177,12 +203,24 @@ export default function HomePage() {
                 />
               ))
             ) : (
-              <EmptyState
-                imgSrc="/images/illustrations/done-empty-large.svg"
-                alt="empty done"
-                message={`아직 다 한 일이 없어요.\n해야 할 일을 체크해보세요!`}
-                size={240}
-              />
+              <>
+                {/* 모바일 전용 이미지 */}
+                <EmptyState
+                  imgSrc="/images/illustrations/done-empty-small.svg"
+                  alt="empty done"
+                  message={`아직 다 한 일이 없어요.\n해야 할 일을 체크해보세요!`}
+                  size={120}
+                  className="block md:hidden"
+                />
+                {/* 태블릿/데스크탑 전용 이미지 */}
+                <EmptyState
+                  imgSrc="/images/illustrations/done-empty-large.svg"
+                  alt="empty done"
+                  message={`아직 다 한 일이 없어요.\n해야 할 일을 체크해보세요!`}
+                  size={240}
+                  className="hidden md:block"
+                />
+              </>
             )}
           </div>
         </div>
