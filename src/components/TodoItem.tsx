@@ -6,9 +6,15 @@ interface TodoItemProps {
   text: string;
   state: TodoItemState;
   onToggle: () => void;
+  onClick: () => void;
 }
 
-export default function TodoItem({ text, state, onToggle }: TodoItemProps) {
+export default function TodoItem({
+  text,
+  state,
+  onToggle,
+  onClick,
+}: TodoItemProps) {
   const STYLE_MAP: Record<
     TodoItemState,
     {
@@ -33,6 +39,7 @@ export default function TodoItem({ text, state, onToggle }: TodoItemProps) {
 
   return (
     <div
+      onClick={onClick}
       className={`flex h-[50px] w-full items-center gap-4 rounded-full border-2 border-slate-900 px-3 ${bgColor}`}
     >
       <button onClick={onToggle}>

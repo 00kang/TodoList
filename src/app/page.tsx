@@ -12,6 +12,7 @@ import {
   postTodoResponse,
 } from "@/lib/type";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Todo {
@@ -21,8 +22,18 @@ interface Todo {
 }
 
 export default function HomePage() {
+  const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
+
+  const goToDetail = (todo: Todo) => {
+    const query = new URLSearchParams({
+      text: todo.text,
+      state: todo.state,
+    }).toString();
+
+    router.push(`/items/${todo.id}?${query}`);
+  };
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -132,6 +143,7 @@ export default function HomePage() {
                   text={todo.text}
                   state="Default"
                   onToggle={() => toggleTodoState(todo.id)}
+                  onClick={() => goToDetail(todo)}
                 />
               ))
             ) : (
@@ -159,6 +171,7 @@ export default function HomePage() {
                   text={todo.text}
                   state="Active"
                   onToggle={() => toggleTodoState(todo.id)}
+                  onClick={() => goToDetail(todo)}
                 />
               ))
             ) : (
