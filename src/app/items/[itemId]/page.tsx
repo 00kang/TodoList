@@ -3,6 +3,7 @@
 import ShadowButton from "@/components/ShadowButton";
 import TodoHeader from "@/components/TodoHeader";
 import TodoImageUploader from "@/components/TodoImageUploader";
+import TodoMemoEditor from "@/components/TodoMemoEditor";
 import { patchTodo, postImage } from "@/lib/api";
 import { TENANT_ID } from "@/lib/constants";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -18,6 +19,7 @@ export default function ItemDetailPage() {
   const [text, setText] = useState("제목 없음");
   const [todoState, setTodoState] = useState<"Default" | "Active">("Default");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [memo, setMemo] = useState("");
 
   useEffect(() => {
     const searchText = searchParams.get("text") ?? "제목 없음";
@@ -43,7 +45,7 @@ export default function ItemDetailPage() {
         name: text,
         isCompleted: todoState === "Active",
         imageUrl,
-        memo: "",
+        memo,
       });
       router.push("/");
     } catch (err) {
@@ -65,16 +67,8 @@ export default function ItemDetailPage() {
       <div className="flex gap-6">
         {/* 이미지 업로더 */}
         <TodoImageUploader onChange={setImageFile} />
-
         {/* 메모 박스 */}
-        <div className="relative flex h-[311px] w-[588px] flex-col items-center rounded-3xl bg-[url('/images/illustrations/memo.svg')] bg-cover bg-no-repeat px-6 py-6">
-          <span className="mb-2 text-base font-extrabold text-amber-800">
-            Memo
-          </span>
-          <div className="flex flex-1 items-center text-base leading-none text-slate-800">
-            오메가 3, 프로폴리스, 아연 챙겨먹기
-          </div>
-        </div>
+        <TodoMemoEditor memo={memo} onChange={setMemo} />
       </div>
 
       {/* 버튼 영역 */}
