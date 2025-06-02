@@ -5,12 +5,12 @@ export interface postTodoRequest {
 
 // POST /{tenantId}/items API 응답 타입
 export interface postTodoResponse {
-  id: 0;
-  tenantId: "string";
-  name: "string";
-  memo: "string" | null;
-  imageUrl: "string" | null;
-  isCompleted: false;
+  id: number;
+  tenantId: string;
+  name: string;
+  memo: string | null;
+  imageUrl: string | null;
+  isCompleted: boolean;
 }
 
 // GET /{tenantId}/items API 응답 타입
@@ -18,6 +18,16 @@ export interface getTodoResponse {
   id: number;
   name: string;
   isCompleted: boolean;
+}
+
+// GET /{tenantId}/items/{itemId} API 응답 타입
+export interface getTodoItemResponse {
+  isCompleted: boolean;
+  imageUrl: string;
+  memo: string;
+  name: string;
+  tenantId: string;
+  id: number;
 }
 
 // PATCH /{tenantId}/items/{itemId} API 요청 바디 타입

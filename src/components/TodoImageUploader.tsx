@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FlatButton from "./FlatButton";
 
 interface TodoImageUploaderProps {
@@ -15,6 +15,12 @@ export default function TodoImageUploader({
 }: TodoImageUploaderProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = useState(imageUrl || "");
+
+  useEffect(() => {
+    if (imageUrl) {
+      setPreview(imageUrl);
+    }
+  }, [imageUrl]);
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
