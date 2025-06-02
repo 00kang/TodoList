@@ -4,12 +4,12 @@ import EmptyState from "@/components/EmptyState";
 import ShadowButton from "@/components/ShadowButton";
 import TodoInput from "@/components/TodoInput";
 import TodoItem from "@/components/TodoItem";
-import { getTodos, patchTodo, postTodo } from "@/lib/api";
+import { getTodoList, patchTodoItem, postTodoItem } from "@/lib/api";
 import { TENANT_ID } from "@/lib/constants";
 import {
-  getTodoResponse,
-  patchTodoRequest,
-  postTodoResponse,
+  getTodoListResponse,
+  patchTodoItemRequest,
+  postTodoItemResponse,
 } from "@/lib/type";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -38,12 +38,14 @@ export default function HomePage() {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const items = await getTodos(TENANT_ID);
-        const todosFromServer: Todo[] = items.map((item: getTodoResponse) => ({
-          id: item.id,
-          text: item.name,
-          state: item.isCompleted ? "Active" : "Default",
-        }));
+        const items = await getTodoList(TENANT_ID);
+        const todosFromServer: Todo[] = items.map(
+          (item: getTodoListResponse) => ({
+            id: item.id,
+            text: item.name,
+            state: item.isCompleted ? "Active" : "Default",
+          }),
+        );
         setTodos(todosFromServer);
       } catch (e) {
         console.error("할 일 목록 불러오기 실패", e);
@@ -58,7 +60,7 @@ export default function HomePage() {
     if (trimmed === "") return;
 
     try {
-      const newItem: postTodoResponse = await postTodo(TENANT_ID, {
+      const newItem: postTodoItemResponse = await postTodoItem(TENANT_ID, {
         name: trimmed,
       });
       const newTodo: Todo = {
@@ -77,7 +79,7 @@ export default function HomePage() {
     const target = todos.find((todo) => todo.id === id);
     if (!target) return;
 
-    const updated: patchTodoRequest = {
+    const updated: patchTodoItemRequest = {
       name: target.text,
       memo: "",
       imageUrl: "",
@@ -85,7 +87,7 @@ export default function HomePage() {
     };
 
     try {
-      await patchTodo(TENANT_ID, String(id), updated);
+      await patchTodoItem(TENANT_ID, String(id), updated);
 
       setTodos((prev) =>
         prev.map((todo) =>

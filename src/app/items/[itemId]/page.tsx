@@ -4,7 +4,12 @@ import ShadowButton from "@/components/ShadowButton";
 import TodoHeader from "@/components/TodoHeader";
 import TodoImageUploader from "@/components/TodoImageUploader";
 import TodoMemoEditor from "@/components/TodoMemoEditor";
-import { deleteTodoItem, getTodoItem, patchTodo, postImage } from "@/lib/api";
+import {
+  deleteTodoItem,
+  getTodoItem,
+  patchTodoItem,
+  postImage,
+} from "@/lib/api";
 import { TENANT_ID } from "@/lib/constants";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -49,7 +54,7 @@ export default function ItemDetailPage() {
         updatedImageUrl = res.url;
       }
 
-      await patchTodo(TENANT_ID, itemId, {
+      await patchTodoItem(TENANT_ID, itemId, {
         name: text,
         isCompleted: todoState === "Active",
         imageUrl: updatedImageUrl,

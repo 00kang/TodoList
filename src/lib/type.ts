@@ -1,10 +1,10 @@
 // POST /{tenantId}/items API 요청 바디 타입
-export interface postTodoRequest {
+export interface postTodoItemRequest {
   name: string;
 }
 
 // POST /{tenantId}/items API 응답 타입
-export interface postTodoResponse {
+export interface postTodoItemResponse {
   id: number;
   tenantId: string;
   name: string;
@@ -14,7 +14,7 @@ export interface postTodoResponse {
 }
 
 // GET /{tenantId}/items API 응답 타입
-export interface getTodoResponse {
+export interface getTodoListResponse {
   id: number;
   name: string;
   isCompleted: boolean;
@@ -31,7 +31,7 @@ export interface getTodoItemResponse {
 }
 
 // PATCH /{tenantId}/items/{itemId} API 요청 바디 타입
-export interface patchTodoRequest {
+export interface patchTodoItemRequest {
   name: string;
   memo: string;
   imageUrl: string;
@@ -39,7 +39,7 @@ export interface patchTodoRequest {
 }
 
 // PATCH /{tenantId}/items/{itemId} API 응답 타입
-export interface patchTodoResponse {
+export interface patchTodoItemResponse {
   id: number;
   tenantId: string;
   name: string;

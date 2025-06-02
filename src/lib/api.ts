@@ -2,19 +2,19 @@ import { BASE_URL } from "@/lib/constants";
 import {
   deleteTodoItemResponse,
   getTodoItemResponse,
-  getTodoResponse,
-  patchTodoRequest,
-  patchTodoResponse,
+  getTodoListResponse,
+  patchTodoItemRequest,
+  patchTodoItemResponse,
   postImageResponse,
-  postTodoRequest,
-  postTodoResponse,
+  postTodoItemRequest,
+  postTodoItemResponse,
 } from "@/lib/type";
 
 // 항목 등록 (POST)
-export const postTodo = async (
+export const postTodoItem = async (
   tenantId: string,
-  data: postTodoRequest,
-): Promise<postTodoResponse> => {
+  data: postTodoItemRequest,
+): Promise<postTodoItemResponse> => {
   const res = await fetch(`${BASE_URL}/${tenantId}/items`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -26,11 +26,11 @@ export const postTodo = async (
 };
 
 // 항목 목록 조회 (GET)
-export const getTodos = async (
+export const getTodoList = async (
   tenantId: string,
   page: number = 1,
   pageSize: number = 10,
-): Promise<getTodoResponse[]> => {
+): Promise<getTodoListResponse[]> => {
   const res = await fetch(
     `${BASE_URL}/${tenantId}/items?page=${page}&pageSize=${pageSize}`,
   );
@@ -51,11 +51,11 @@ export const getTodoItem = async (
 };
 
 // 항목 수정 (PATCH)
-export const patchTodo = async (
+export const patchTodoItem = async (
   tenantId: string,
   itemId: string,
-  payload: patchTodoRequest,
-): Promise<patchTodoResponse> => {
+  payload: patchTodoItemRequest,
+): Promise<patchTodoItemResponse> => {
   const res = await fetch(`${BASE_URL}/${tenantId}/items/${itemId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
