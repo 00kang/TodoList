@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 type TodoHeaderState = "Default" | "Active";
@@ -34,7 +36,7 @@ export default function TodoHeader({
 
   return (
     <div
-      className={`flex h-[64px] w-full items-center gap-4 rounded-3xl border-2 border-slate-900 px-3 ${bgColor}`}
+      className={`flex h-[64px] w-full items-center justify-center gap-4 rounded-3xl border-2 border-slate-900 px-3 ${bgColor}`}
     >
       <button onClick={onToggle} className="flex items-center justify-center">
         <Image src={icon} alt="checkbox" width={32} height={32} />
