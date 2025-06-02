@@ -40,13 +40,12 @@ export default function TodoImageUploader({
   };
 
   return (
-    <div className="relative flex h-[311px] w-[384px] items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-slate-300 bg-slate-50">
+    <div className="relative flex h-[311px] w-full items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-slate-300 bg-slate-50 lg:w-[384px]">
       {preview ? (
         <Image
           src={preview}
           alt="preview"
-          width={384}
-          height={311}
+          fill
           className="max-h-full max-w-full rounded-3xl object-cover"
         />
       ) : (
@@ -58,7 +57,10 @@ export default function TodoImageUploader({
         />
       )}
       <div className="absolute bottom-4 right-4">
-        <FlatButton type="Plus" onClick={() => inputRef.current?.click()} />
+        <FlatButton
+          type={preview ? "Edit" : "Plus"}
+          onClick={() => inputRef.current?.click()}
+        />
         <input
           type="file"
           accept="image/*"

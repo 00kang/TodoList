@@ -24,6 +24,12 @@ export default function ItemDetailPage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
   const [memo, setMemo] = useState("");
+  const [original, setOriginal] = useState({
+    name: "",
+    memo: "",
+    imageUrl: "",
+    isCompleted: false,
+  });
 
   useEffect(() => {
     const fetchTodo = async () => {
@@ -33,6 +39,12 @@ export default function ItemDetailPage() {
         setTodoState(data.isCompleted ? "Active" : "Default");
         setImageUrl(data.imageUrl || "");
         setMemo(data.memo || "");
+        setOriginal({
+          name: data.name,
+          memo: data.memo || "",
+          imageUrl: data.imageUrl || "",
+          isCompleted: data.isCompleted,
+        });
       } catch (err) {
         console.error("Failed to fetch todo item:", err);
       }
@@ -70,11 +82,17 @@ export default function ItemDetailPage() {
   const handleDelete = async () => {
     try {
       await deleteTodoItem(TENANT_ID, itemId);
-      router.push("/"); // 목록 페이지로 이동
+      router.push("/");
     } catch (err) {
       console.error("Failed to delete todo:", err);
     }
   };
+
+  const isEdited =
+    text !== original.name ||
+    memo !== original.memo ||
+    (todoState === "Active") !== original.isCompleted ||
+    imageFile !== null;
 
   return (
     <div className="w-full space-y-6 py-6">
@@ -87,17 +105,17 @@ export default function ItemDetailPage() {
       />
 
       {/* 이미지 업로드 & 메모 박스 */}
-      <div className="flex gap-6">
+      <div className="flex flex-col gap-6 lg:flex-row">
         <TodoImageUploader imageUrl={imageUrl} onChange={setImageFile} />
         <TodoMemoEditor memo={memo} onChange={setMemo} />
       </div>
 
       {/* 버튼 영역 */}
-      <div className="flex justify-end gap-4">
+      <div className="flex justify-center gap-4 lg:flex-row lg:justify-end">
         <ShadowButton
           type="Edit"
           size="Large"
-          state="Default"
+          state={isEdited ? "Active" : "Default"}
           onClick={handleEdit}
         />
         <ShadowButton

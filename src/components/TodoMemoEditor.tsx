@@ -8,7 +8,7 @@ export default function TodoMemoEditor({
   onChange,
 }: TodoMemoEditorProps) {
   return (
-    <div className="flex h-[311px] w-[588px] flex-col rounded-3xl bg-[url('/images/illustrations/memo.svg')] bg-cover bg-no-repeat px-4 py-6">
+    <div className="flex h-[311px] w-full flex-col rounded-3xl bg-[url('/images/illustrations/memo.svg')] bg-cover bg-no-repeat px-4 py-6 lg:w-[588px]">
       <span className="mb-2 text-center text-base font-extrabold text-amber-800">
         Memo
       </span>
