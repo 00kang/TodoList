@@ -14,9 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="bg-slate-100 font-sans antialiased">
+      <body className="bg-gray-50 bg-slate-100 font-sans antialiased">
         <GNB />
-        <main className="mx-auto w-full max-w-[1200px] bg-white sm:px-4 md:px-6 lg:px-0">
+        <main className="mx-auto w-full max-w-[1200px] sm:px-4 md:px-6 lg:px-0">
           {children}
         </main>
       </body>

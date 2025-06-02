@@ -4,8 +4,8 @@ export default function ItemDetailLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="mx-auto min-h-screen w-full max-w-[1000px] py-6">
-      {children}
-    </section>
+    <div className="flex min-h-screen w-full justify-center bg-white">
+      <section className="mx-auto w-full max-w-[1000px]">{children}</section>
+    </div>
   );
 }

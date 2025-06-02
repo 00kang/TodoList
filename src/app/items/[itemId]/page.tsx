@@ -30,7 +30,7 @@ export default function ItemDetailPage({
   };
 
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full space-y-6 py-6">
       <TodoHeader text={text} state={todoState} onToggle={toggleState} />
 
       {/* 이미지 업로드 & 메모 박스 */}

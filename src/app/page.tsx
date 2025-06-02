@@ -106,7 +106,7 @@ export default function HomePage() {
   const doneList = todos.filter((todo) => todo.state === "Active");
 
   return (
-    <div className="w-full space-y-10">
+    <div className="w-full space-y-10 py-6">
       {/* 입력 영역 */}
       <div className="flex w-full gap-4">
         <div className="flex-1">
