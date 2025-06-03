@@ -1,5 +1,5 @@
-import ShadowButton from "@/components/ShadowButton";
-import TodoInput from "@/components/TodoInput";
+import { ShadowButton } from "@/components/common";
+import TodoInput from "@/components/home/TodoInput";
 
 interface TodoAddSectionProps {
   inputValue: string;

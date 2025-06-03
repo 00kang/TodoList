@@ -1,4 +1,4 @@
-import GNB from "@/components/GNB";
+import GNB from "@/components/common/GNB";
 import type { Metadata } from "next";
 import "./globals.css";
 

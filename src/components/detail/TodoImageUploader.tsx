@@ -1,8 +1,8 @@
 "use client";
 
+import { FlatButton } from "@/components/common";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import FlatButton from "./FlatButton";
 
 interface TodoImageUploaderProps {
   imageUrl?: string;

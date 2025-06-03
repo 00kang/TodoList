@@ -1,7 +1,6 @@
 "use client";
 
-import TodoAddSection from "@/components/home/TodoAddSection";
-import TodoListSection from "@/components/home/TodoListSection";
+import { TodoAddSection, TodoListSection } from "@/components/home";
 import { getTodoList, patchTodoItem, postTodoItem } from "@/lib/api";
 import { TENANT_ID } from "@/lib/constants";
 import {

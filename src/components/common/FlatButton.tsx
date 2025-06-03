@@ -1,4 +1,4 @@
-import PlusIcon from "@/components/PlusIcon";
+import PlusIcon from "@/components/common/PlusIcon";
 import Image from "next/image";
 
 type FlatButtonType = "Plus" | "Edit";

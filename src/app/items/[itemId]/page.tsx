@@ -1,9 +1,11 @@
 "use client";
 
-import ShadowButton from "@/components/ShadowButton";
-import TodoHeader from "@/components/TodoHeader";
-import TodoImageUploader from "@/components/TodoImageUploader";
-import TodoMemoEditor from "@/components/TodoMemoEditor";
+import { ShadowButton } from "@/components/common";
+import {
+  TodoHeader,
+  TodoImageUploader,
+  TodoMemoEditor,
+} from "@/components/detail";
 import {
   deleteTodoItem,
   getTodoItem,

@@ -1,5 +1,5 @@
-import TodoEmptyState from "@/components/TodoEmptyState";
-import TodoItem from "@/components/TodoItem";
+import TodoEmptyState from "@/components/home/TodoEmptyState";
+import TodoItem from "@/components/home/TodoItem";
 import { Todo } from "@/lib/type";
 import Image from "next/image";
 
