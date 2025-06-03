@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TodoList 프로젝트
 
-## Getting Started
+- 배포 주소 : https://todo-list-nine-azure.vercel.app/
 
-First, run the development server:
+<br>
+
+## 기술스택
+
+- Next.js v15 (App Router)
+- TypeScript
+- Tailwind CSS
+- next/image
+- REST API
+
+<br>
+
+## 주요 기능
+
+- 할 일 목록 조회 / 추가 / 수정 / 삭제 가능
+  - 완료 처리 변경 가능
+  - 항목 이름 변경 가능
+  - 메모 작성 가능
+  - 이미지 업로드 가능
+- 해야 할 todoList와 완료된 일 doneList 분리 표시
+- 반응형 대응 및 빈 상태 안내 UI
+
+<br>
+
+| 홈 페이지 - 할 일 목록 X           | 홈 페이지 - 할 일 목록 O           |
+| ---------------------------------- | ---------------------------------- |
+| <img src="public/readme/one.png"/> | <img src="public/readme/two.png"/> |
+
+| 상세 페이지 - 컨텐츠 추가 전         | 상세 페이지 - 상세 페이지컨텐츠 추가 후 |
+| ------------------------------------ | --------------------------------------- |
+| <img src="public/readme/three.png"/> | <img src="public/readme/four.png"/>     |
+
+<br>
+
+## 디렉터리 구조
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+📦src
+ ┣ 📂app
+ ┃ ┣ 📂items
+ ┃ ┃ ┗ 📂[itemId]
+ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┣ 📜favicon.ico
+ ┃ ┣ 📜globals.css
+ ┃ ┣ 📜layout.tsx
+ ┃ ┗ 📜page.tsx
+ ┣ 📂components
+ ┃ ┣ 📂common
+ ┃ ┃ ┣ 📜FlatButton.tsx
+ ┃ ┃ ┣ 📜GNB.tsx
+ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┣ 📜PlusIcon.tsx
+ ┃ ┃ ┗ 📜ShadowButton.tsx
+ ┃ ┣ 📂detail
+ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┣ 📜TodoHeader.tsx
+ ┃ ┃ ┣ 📜TodoImageUploader.tsx
+ ┃ ┃ ┗ 📜TodoMemoEditor.tsx
+ ┃ ┗ 📂home
+ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┣ 📜TodoAddSection.tsx
+ ┃ ┃ ┣ 📜TodoEmptyState.tsx
+ ┃ ┃ ┣ 📜TodoInput.tsx
+ ┃ ┃ ┣ 📜TodoItem.tsx
+ ┃ ┃ ┗ 📜TodoListSection.tsx
+ ┣ 📂hooks
+ ┃ ┣ 📜useTodoDetailForm.ts
+ ┃ ┗ 📜useTodos.ts
+ ┗ 📂lib
+ ┃ ┣ 📜api.ts
+ ┃ ┣ 📜constants.ts
+ ┃ ┣ 📜type.ts
+ ┃ ┗ 📜utils.ts
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
