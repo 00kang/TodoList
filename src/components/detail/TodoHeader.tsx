@@ -18,6 +18,7 @@ export default function TodoHeader({
   onToggle = () => {},
   onTextChange,
 }: TodoHeaderProps) {
+  // 상태에 따른 스타일 매핑
   const STYLE_MAP: Record<
     TodoHeaderState,
     {
@@ -37,10 +38,11 @@ export default function TodoHeader({
 
   const { icon, bgColor } = STYLE_MAP[state];
 
-  const spanRef = useRef<HTMLSpanElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [inputWidth, setInputWidth] = useState(0);
+  const spanRef = useRef<HTMLSpanElement>(null); // 텍스트 길이 측정용 요소
+  const inputRef = useRef<HTMLInputElement>(null); // 실제 입력창
+  const [inputWidth, setInputWidth] = useState(0); // 입력창 너비 상태
 
+  // 텍스트가 바뀔 때마다 입력창 너비 재계산
   useEffect(() => {
     if (spanRef.current) {
       const width = spanRef.current.offsetWidth;
@@ -52,10 +54,12 @@ export default function TodoHeader({
     <div
       className={`flex h-[64px] w-full items-center justify-center gap-4 rounded-3xl border-2 border-slate-900 px-3 ${bgColor}`}
     >
+      {/* 완료 여부 토글 */}
       <button onClick={onToggle} className="flex items-center justify-center">
         <Image src={icon} alt="checkbox" width={32} height={32} />
       </button>
 
+      {/* 인라인 제목 입력 필드 */}
       <div className="relative">
         <input
           ref={inputRef}

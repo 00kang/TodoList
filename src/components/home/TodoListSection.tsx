@@ -48,6 +48,7 @@ export default function TodoListSection({
           )}
         </div>
       </div>
+
       {/* DONE 리스트 */}
       <div className="flex-1 gap-4">
         <Image

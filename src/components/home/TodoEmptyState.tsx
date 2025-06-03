@@ -16,6 +16,7 @@ export default function TodoEmptyState({
   return (
     <div className={`flex flex-col items-center gap-6 text-center`}>
       <div className="relative">
+        {/* 모바일 이미지 */}
         <Image
           src={imgSrc}
           alt={alt}
@@ -23,6 +24,7 @@ export default function TodoEmptyState({
           height={120}
           className={imgSrcMd ? "block md:hidden" : ""}
         />
+        {/* 태블릿 / 데스크탑 이미지 */}
         {imgSrcMd && (
           <Image
             src={imgSrcMd}
@@ -33,6 +35,8 @@ export default function TodoEmptyState({
           />
         )}
       </div>
+
+      {/* 안내 메시지 출력 */}
       <p className="whitespace-pre-line text-base font-bold leading-snug text-slate-400">
         {message}
       </p>

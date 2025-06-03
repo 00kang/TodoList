@@ -11,6 +11,7 @@ export default function TodoInput({
   onChange,
   onEnter,
 }: TodoInputProps) {
+  // 키보드 이벤트 핸들러
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && onEnter) {
       onEnter();

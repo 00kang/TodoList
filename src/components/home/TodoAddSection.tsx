@@ -16,6 +16,7 @@ export default function TodoAddSection({
 }: TodoAddSectionProps) {
   return (
     <div className="flex w-full gap-4">
+      {/* 입력 필드 */}
       <div className="flex-1">
         <TodoInput
           value={inputValue}

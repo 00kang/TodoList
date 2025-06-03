@@ -1,3 +1,10 @@
+/**
+ * useTodoDetailForm
+ *
+ * - 특정 Todo 상세 페이지에서 수정/삭제/입력 상태 관리 전반을 담당하는 커스텀 훅
+ * - 데이터 초기 로딩, 이미지 업로드, 수정/삭제 API 호출, 편집 여부 판단 등을 포함
+ */
+
 "use client";
 
 import { deleteTodoItem, getTodoItem, patchTodoItem } from "@/lib/api";
@@ -11,11 +18,14 @@ export function useTodoDetailForm() {
   const router = useRouter();
   const { itemId } = useParams() as { itemId: string };
 
+  // 입력 상태들
   const [text, setText] = useState("제목 없음");
   const [todoState, setTodoState] = useState<"Default" | "Active">("Default");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
   const [memo, setMemo] = useState("");
+
+  // 원본 데이터 (수정 여부 판단용)
   const [original, setOriginal] = useState({
     name: "",
     memo: "",
@@ -23,6 +33,7 @@ export function useTodoDetailForm() {
     isCompleted: false,
   });
 
+  // Todo 상세 정보 초기 로딩
   useEffect(() => {
     (async () => {
       try {
@@ -43,9 +54,11 @@ export function useTodoDetailForm() {
     })();
   }, [itemId]);
 
+  // 상태 토글 핸들러 (완료 <-> 미완료)
   const toggleState = () =>
     setTodoState((prev) => (prev === "Default" ? "Active" : "Default"));
 
+  // 수정 API 호출 + 이미지 업로드 처리
   const handleEdit = async () => {
     try {
       const updatedImageUrl = await uploadTodoImage(imageFile, imageUrl);
@@ -61,6 +74,7 @@ export function useTodoDetailForm() {
     }
   };
 
+  // 삭제 API 호출
   const handleDelete = async () => {
     try {
       await deleteTodoItem(TENANT_ID, itemId);
@@ -70,6 +84,7 @@ export function useTodoDetailForm() {
     }
   };
 
+  // 입력값이 원본과 달라졌는지 여부 판단 (버튼 활성화 조건 등으로 활용)
   const isEdited = isEditedComparedToOriginal({
     text,
     memo,

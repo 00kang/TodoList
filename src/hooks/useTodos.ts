@@ -1,3 +1,10 @@
+/**
+ * useTodos
+ *
+ * - 전체 Todo 리스트를 관리하는 커스텀 훅
+ * - 초기 데이터 로딩, 할 일 추가, 상태 토글 등 주요 동작 처리
+ */
+
 "use client";
 
 import { getTodoList, patchTodoItem, postTodoItem } from "@/lib/api";
@@ -8,6 +15,7 @@ import { useEffect, useState } from "react";
 export function useTodos() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
+  // 컴포넌트 최초 렌더링 시, 서버로부터 Todo 리스트를 불러옴
   useEffect(() => {
     (async () => {
       try {
@@ -25,6 +33,7 @@ export function useTodos() {
     })();
   }, []);
 
+  // 새로운 Todo 항목 추가
   const addTodo = async (text: string) => {
     const trimmed = text.trim();
     if (trimmed === "") return;
@@ -40,6 +49,7 @@ export function useTodos() {
     }
   };
 
+  // 특정 Todo 항목의 상태(Default <-> Active) 토글
   const toggleTodo = async (id: number) => {
     const target = todos.find((todo) => todo.id === id);
     if (!target) return;

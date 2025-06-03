@@ -1,3 +1,10 @@
+/**
+ * FlatButton 컴포넌트
+ *
+ * - "Plus": 연한 회색 배경 + 플러스 아이콘
+ * - "Edit": 반투명 어두운 배경 + 검은색 테두리 + 연필 아이콘
+ */
+
 import PlusIcon from "@/components/common/PlusIcon";
 import Image from "next/image";
 
