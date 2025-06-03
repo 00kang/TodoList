@@ -1,3 +1,10 @@
+// ToDo
+export interface Todo {
+  id: number;
+  text: string;
+  state: "Default" | "Active";
+}
+
 // POST /{tenantId}/items API 요청 바디 타입
 export interface postTodoItemRequest {
   name: string;
