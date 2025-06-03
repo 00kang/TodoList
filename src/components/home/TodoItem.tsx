@@ -39,14 +39,14 @@ export default function TodoItem({
 
   return (
     <div
-      onClick={onClick}
       className={`flex h-[50px] w-full items-center gap-4 rounded-full border-2 border-slate-900 px-3 ${bgColor}`}
     >
       <button onClick={onToggle}>
         <Image src={icon} alt="checkbox" width={32} height={32} />
       </button>
       <span
-        className={`text-base font-normal leading-none text-slate-900 ${textStyle}`}
+        onClick={onClick}
+        className={`flex-1 text-base font-normal leading-none text-slate-900 ${textStyle}`}
       >
         {text}
       </span>

@@ -27,7 +27,7 @@ export default function TodoListSection({
           width={100}
           height={36}
         />
-        <div className="mt-4 flex items-center justify-center space-y-4">
+        <div className="mt-4 flex flex-col items-center justify-center space-y-4">
           {todoList.length > 0 ? (
             todoList.map((todo) => (
               <TodoItem
@@ -56,7 +56,7 @@ export default function TodoListSection({
           width={100}
           height={36}
         />
-        <div className="mt-4 flex items-center justify-center space-y-4">
+        <div className="mt-4 flex flex-col items-center justify-center space-y-4">
           {doneList.length > 0 ? (
             doneList.map((todo) => (
               <TodoItem
